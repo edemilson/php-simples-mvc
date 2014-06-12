@@ -17,21 +17,25 @@ class Loader {
     
     //Pagaremos os parametros da URL para criarmos nosso controller
     public function __construct() {
-
+        require('application/config/config.php');
         //Pega os dados da URL
         $this->urlValues = $_GET;
+
+        if($this->urlValues['controller'] == ""){
+            $this->urlValues['controller'] = $config['ctrlHome'];
+        }
         
         //Vamos verificar se o controller existe, caso não iremos utilizar o controller home como default
-        if ($this->urlValues['controller'] == "") {
-            $this->controllerName = "home";
-            $this->controllerClass = "HomeController";
-        } else {
+        //if ($this->urlValues['controller'] == "") {
+        //    $this->controllerName = "home";
+        //    $this->controllerClass = "HomeController";
+       // } else {
             //Se existir vamos gravar seu nome nas variáveis
             //strtolower deixo todo o conteúdo da string minusculo.
             $this->controllerName = strtolower($this->urlValues['controller']);
             //ucfirst deixo o primeiro caracter da string maiusculo.
             $this->controllerClass = ucfirst(strtolower($this->urlValues['controller'])) . "Controller";
-        }
+        //}
         //Vamos verificar qual método estamos chamando, se não existir por default chamaremos o index
         if ($this->urlValues['action'] == "") {
             $this->action = "index";
@@ -42,12 +46,13 @@ class Loader {
                   
     //Esse é nosso método responsavel pela criação do controller
     public function createController() {
+        require('application/config/config.php');
         //Vamos checar se o arquivo existe, se não vamos redirecionar o usuário para uma página de erro
         if (file_exists("application/controllers/" . $this->controllerName . ".php")) {
             require("application/controllers/" . $this->controllerName . ".php");
         } else {
-            require("application/controllers/error.php");
-            return new ErrorController("badurl",$this->urlValues);
+            require("application/controllers/".$config['ctrl404'].".php");
+            return new ErrorController('index');
         }
                 
         //É preciso também verificar se a classe existe no arquivo
@@ -66,18 +71,18 @@ class Loader {
                     return $controllerActive;
                 } else {
                     //Se o método não existe, redirecionamos para o nossa página de erro
-                    require("application/controllers/error.php");
-                    return new ErrorController("badurl",$this->urlValues);
+                    require("application/controllers/".$config['ctrl404'].".php");
+                    return new ErrorController('index');
                 }
             } else {
                 //Se não herdou do BaseController, redirecionamos para o nossa página de erro 
-                require("application/controllers/error.php");
-                return new ErrorController("badurl",$this->urlValues);
+                require("application/controllers/".$config['ctrl404'].".php");
+                return new ErrorController('index');
             }
         } else {
             //Se a classe não existe no arquivo, redirecionamos para o nossa página de erro 
-            require("application/controllers/error.php");
-            return new ErrorController("badurl",$this->urlValues);
+            require("application/controllers/".$config['ctrl404'].".php");
+            return new ErrorController('index');
         }
     }
 }
