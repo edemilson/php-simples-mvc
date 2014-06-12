@@ -1,20 +1,22 @@
 <?php
+
 /* 
- * Project: Nathan MVC
- * File: index.php
- * Purpose: landing page which handles all requests
- * Author: Nathan Davison
+ * Projeto: PHPEtec
+ * Arquivo: index.php
+ * Propósito: Página de destino que lida com todas as solicitações
+ * Author: Edemilson Goncalves
+ * Email: ede.goncalves88@gmail.com
  */
 
-//load the required classes
-require("classes/basecontroller.php");  
-require("classes/basemodel.php");
-require("classes/view.php");
-require("classes/viewmodel.php");
-require("classes/loader.php");
+//Leitura das classes do sistema
+require("system/basecontroller.php");  
+require("system/basemodel.php");
+require("system/baseview.php");
+require("system/database.php");
+require("system/loader.php");
 
-$loader = new Loader(); //create the loader object
-$controller = $loader->createController(); //creates the requested controller object based on the 'controller' URL value
-$controller->executeAction(); //execute the requested controller's requested method based on the 'action' URL value. Controller methods output a View.
+$loader = new Loader(); //Cria nosso loader que irá ler nossos controllers
+$controller = $loader->createController(); //Cria o controller que foi solicitado
+$controller->executeAction(); //executa o método solicitado e exibe a view formatada
 
 ?>
