@@ -19,11 +19,21 @@ class Database {
 
     //faz a conexão com o banco de dados
     protected function connect() {
-       $this->connectObject = new PDO('mysql:host=localhost;dbname=phpetec', 'root', 'kgb8y2k');
+        require('application/config/database.php');
+        if($database['connect'] == "true"){
+            $this->connectObject = new PDO('mysql:host='.$database['host'].';dbname='.$database['database'], $database['user'], $database['password']);
+        }else{
+            $this->connectObject == false;
+        }
     }
 
     public function query($query){
-        return $this->connectObject->query($query);
+        if($this->connectObject != false){
+            return $this->connectObject->query($query);
+        }else{
+            echo "Nao conectado no banco de dados";
+            return;
+        }
     }
 
 }
