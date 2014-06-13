@@ -17,12 +17,14 @@ class BaseView {
     }
                
     //Mostramos nossa view
-    public function output($view, $data) {
+    public function output($view="", $data="") {
        
         $this->dataView = $data;
         
-        foreach($data as $key => $value){
-            $$key = $value;
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                $$key = $value;
+            }
         }
 
         $this->viewFile = "application/views/" . $view. ".php";

@@ -15,10 +15,8 @@ class BaseController {
     public $model;
     public $view;    
     
-    public function __construct($action) {
-        if($action){
-            $this->action = $action;
-        }
+    public function __construct() {
+
     }
         
     //Executa o método requisitado

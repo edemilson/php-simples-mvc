@@ -8,6 +8,9 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 //Leitura das classes do sistema
 require("system/basecontroller.php");  
 require("system/basemodel.php");

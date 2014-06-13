@@ -21,21 +21,16 @@ class Loader {
         //Pega os dados da URL
         $this->urlValues = $_GET;
 
+        //Vamos verificar se o controller existe, caso não iremos utilizar o controller home como default
         if($this->urlValues['controller'] == ""){
             $this->urlValues['controller'] = $config['ctrlHome'];
         }
+
+        //strtolower deixo todo o conteúdo da string minusculo.
+        $this->controllerName = strtolower($this->urlValues['controller']);
+        //ucfirst deixo o primeiro caracter da string maiusculo.
+        $this->controllerClass = ucfirst(strtolower($this->urlValues['controller'])) . "Controller";
         
-        //Vamos verificar se o controller existe, caso não iremos utilizar o controller home como default
-        //if ($this->urlValues['controller'] == "") {
-        //    $this->controllerName = "home";
-        //    $this->controllerClass = "HomeController";
-       // } else {
-            //Se existir vamos gravar seu nome nas variáveis
-            //strtolower deixo todo o conteúdo da string minusculo.
-            $this->controllerName = strtolower($this->urlValues['controller']);
-            //ucfirst deixo o primeiro caracter da string maiusculo.
-            $this->controllerClass = ucfirst(strtolower($this->urlValues['controller'])) . "Controller";
-        //}
         //Vamos verificar qual método estamos chamando, se não existir por default chamaremos o index
         if ($this->urlValues['action'] == "") {
             $this->action = "index";
@@ -52,7 +47,8 @@ class Loader {
             require("application/controllers/" . $this->controllerName . ".php");
         } else {
             require("application/controllers/".$config['ctrl404'].".php");
-            return new ErrorController('index');
+            $this->setError();
+            return $this->showPage();
         }
                 
         //É preciso também verificar se a classe existe no arquivo
@@ -64,26 +60,46 @@ class Loader {
                 //E se a classe contém o método que estamos procurando.
                 if (method_exists($this->controllerClass,$this->action))
                 {
-                    //return new $this->controllerClass($this->action,$this->urlValues);
-                    $controllerActive = new $this->controllerClass();
-                    $controllerActive->action = $this->action;
-                    $controllerActive->urlValues = $this->urlValues;
-                    return $controllerActive;
+
+                    return $this->showPage();
+
                 } else {
                     //Se o método não existe, redirecionamos para o nossa página de erro
                     require("application/controllers/".$config['ctrl404'].".php");
-                    return new ErrorController('index');
+                    $this->setError();
+                    return $this->showPage();
+
                 }
             } else {
                 //Se não herdou do BaseController, redirecionamos para o nossa página de erro 
                 require("application/controllers/".$config['ctrl404'].".php");
-                return new ErrorController('index');
+                $this->setError();
+                return $this->showPage();
             }
         } else {
             //Se a classe não existe no arquivo, redirecionamos para o nossa página de erro 
             require("application/controllers/".$config['ctrl404'].".php");
-            return new ErrorController('index');
+            $this->setError();
+            return $this->showPage();
         }
+    }
+
+    public function showPage(){
+
+        $controllerActive = new $this->controllerClass();
+        $controllerActive->action = $this->action;
+        $controllerActive->urlValues = $this->urlValues;
+        return $controllerActive;
+
+    }
+
+    public function setError(){
+
+        require('application/config/config.php');
+        $this->controllerClass = ucfirst(strtolower($config['ctrl404'])) . "Controller";
+        $this->action = "index";;
+        return;
+
     }
 }
 
