@@ -8,6 +8,9 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+namespace Root;
+use Root\Database;
+
 class BaseModel {
 
     protected $db;
@@ -20,15 +23,13 @@ class BaseModel {
     public function load($model){
         //Vamos checar se o arquivo existe, se não vamos redirecionar o usuário para uma página de erro
         if (file_exists("application/models/" . $model . ".php")) {
-            require("application/models/" . $model . ".php");
+            require_once("application/models/" . $model . ".php");
             $modelClass = ucfirst(strtolower($model)) . "Model";
             $modelActive = new $modelClass();
             return $modelActive;
         } else {
             echo 'erro load model';
             return;
-            //require("application/controllers/error.php");
-            //return new ErrorController("badurl",$this->urlValues);
         }
 
     }

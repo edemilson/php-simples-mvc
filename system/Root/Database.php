@@ -8,6 +8,8 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+namespace Root;
+
 class Database {
 
     protected $connectObject;
@@ -21,7 +23,7 @@ class Database {
     protected function connect() {
         require('application/config/database.php');
         if($database['connect'] == "true"){
-            $this->connectObject = new PDO('mysql:host='.$database['host'].';dbname='.$database['database'], $database['user'], $database['password']);
+            $this->connectObject = new \PDO('mysql:host='.$database['host'].';dbname='.$database['database'], $database['user'], $database['password']);
         }else{
             $this->connectObject == false;
         }

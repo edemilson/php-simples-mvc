@@ -8,15 +8,11 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+use Root\BaseController;
+
 class HomeController extends BaseController
 {
  
-    public function __construct() {
-        parent::__construct();
-        
-    }
-    
-    
     public function index()
     {
 

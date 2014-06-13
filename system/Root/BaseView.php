@@ -8,14 +8,12 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+namespace Root;
+
 class BaseView {    
     
     public $viewFile;
     
-    public function __construct() {
-
-    }
-               
     //Mostramos nossa view
     public function output($view="", $data="") {
        
@@ -31,9 +29,9 @@ class BaseView {
 
         if (file_exists($this->viewFile)) {
             //Exibimos nossa view
-            require($this->viewFile);
+            require_once($this->viewFile);
         } else {
-            require("application/views/error/badview.php");
+            require_once("application/views/error/badview.php");
         }
         
     }

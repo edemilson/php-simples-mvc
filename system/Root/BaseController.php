@@ -8,16 +8,17 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+namespace Root;
+
+use Root\BaseView;
+use Root\BaseModel;
+
 class BaseController {
     
     public $urlValues;
     public $action;
     public $model;
     public $view;    
-    
-    public function __construct() {
-
-    }
         
     //Executa o método requisitado
     public function executeAction() {

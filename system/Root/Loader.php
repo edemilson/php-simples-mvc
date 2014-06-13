@@ -8,6 +8,8 @@
  * Email: ede.goncalves88@gmail.com
  */
 
+namespace Root;
+
 class Loader {
     
     private $controllerName;
@@ -17,7 +19,7 @@ class Loader {
     
     //Pagaremos os parametros da URL para criarmos nosso controller
     public function __construct() {
-        require('application/config/config.php');
+        require_once('application/config/config.php');
         //Pega os dados da URL
         $this->urlValues = $_GET;
 
@@ -30,7 +32,8 @@ class Loader {
         $this->controllerName = strtolower($this->urlValues['controller']);
         //ucfirst deixo o primeiro caracter da string maiusculo.
         $this->controllerClass = ucfirst(strtolower($this->urlValues['controller'])) . "Controller";
-        
+        //echo $this->controllerClass;
+        //return;
         //Vamos verificar qual método estamos chamando, se não existir por default chamaremos o index
         if ($this->urlValues['action'] == "") {
             $this->action = "index";
@@ -44,19 +47,20 @@ class Loader {
         require('application/config/config.php');
         //Vamos checar se o arquivo existe, se não vamos redirecionar o usuário para uma página de erro
         if (file_exists("application/controllers/" . $this->controllerName . ".php")) {
-            require("application/controllers/" . $this->controllerName . ".php");
+            require_once("application/controllers/" . $this->controllerName . ".php");
         } else {
-            require("application/controllers/".$config['ctrl404'].".php");
+            require_once("application/controllers/".$config['ctrl404'].".php");
             $this->setError();
             return $this->showPage();
         }
-                
+ 
         //É preciso também verificar se a classe existe no arquivo
         if (class_exists($this->controllerClass)) {
             $parents = class_parents($this->controllerClass);
-            
+
             //É preciso saber também se ela herdou a classe BaseController
-            if (in_array("BaseController",$parents)) {   
+            if (in_array("Root\BaseController",$parents)) {
+
                 //E se a classe contém o método que estamos procurando.
                 if (method_exists($this->controllerClass,$this->action))
                 {
@@ -65,20 +69,21 @@ class Loader {
 
                 } else {
                     //Se o método não existe, redirecionamos para o nossa página de erro
-                    require("application/controllers/".$config['ctrl404'].".php");
+                    require_once("application/controllers/".$config['ctrl404'].".php");
                     $this->setError();
                     return $this->showPage();
 
                 }
             } else {
+
                 //Se não herdou do BaseController, redirecionamos para o nossa página de erro 
-                require("application/controllers/".$config['ctrl404'].".php");
+                require_once("application/controllers/".$config['ctrl404'].".php");
                 $this->setError();
                 return $this->showPage();
             }
         } else {
             //Se a classe não existe no arquivo, redirecionamos para o nossa página de erro 
-            require("application/controllers/".$config['ctrl404'].".php");
+            require_once("application/controllers/".$config['ctrl404'].".php");
             $this->setError();
             return $this->showPage();
         }

@@ -8,12 +8,9 @@
  * Email: ede.goncalves88@gmail.com
  */
 
-class HomeModel extends BaseModel{
+use Root\BaseModel;
 
-    public function __construct() {
-        parent::__construct();
-        
-    }
+class HomeModel extends BaseModel{
 
     public function getData(){
         return $this->db->query("SELECT * FROM usuarios");

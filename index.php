@@ -11,14 +11,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-//Leitura das classes do sistema
-require("system/basecontroller.php");  
-require("system/basemodel.php");
-require("system/baseview.php");
-require("system/database.php");
-require("system/loader.php");
+require_once('bootstrap.php');
 
-$loader = new Loader(); //Cria nosso loader que irá ler nossos controllers
+$loader = new \Root\Loader(); //Cria nosso loader que irá ler nossos controllers
 $controller = $loader->createController(); //Cria o controller que foi solicitado
 $controller->executeAction(); //executa o método solicitado e exibe a view formatada
 
