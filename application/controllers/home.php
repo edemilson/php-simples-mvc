@@ -18,8 +18,10 @@ class HomeController extends BaseController
 
         $result = $this->model->load('home')->getData();
 
-        foreach ($result as $value) {
-            echo $value['nome'];
+        if($result){
+            foreach ($result as $value) {
+                echo $value['nome'];
+            }
         }
 
         $this->view->output('template/header');
