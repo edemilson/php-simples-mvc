@@ -8,10 +8,10 @@
  * Email: ede.goncalves88@gmail.com
  */
 
-$database['connect'] 	= true;
+$database['connect'] 	= false;
 $database['host'] 		= "localhost";
 $database['database'] 	= "phpetec";
 $database['user'] 		= "root";
-$database['password'] 	= "kgb8y2k";
+$database['password'] 	= "";
 
 ?>
