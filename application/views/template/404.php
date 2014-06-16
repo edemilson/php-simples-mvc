@@ -1,2 +1,2 @@
-<h1>Pagina nao encontrada</h1>
-<p>Em caso de duvidas entre em contato com o administrador do site</p>
+<h1>Página não encontrada</h1>
+<p>Tem treta forte ai, qualquer dúvida fale com o administrador do site!</p>

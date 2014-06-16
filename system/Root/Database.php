@@ -33,8 +33,7 @@ class Database {
         if($this->connectObject != false){
             return $this->connectObject->query($query);
         }else{
-            echo "Nao conectado no banco de dados";
-            return;
+            return false;
         }
     }
 
