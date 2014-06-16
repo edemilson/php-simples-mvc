@@ -12,13 +12,14 @@ use Root\BaseController;
 
 class HomeController extends BaseController
 {
- 
     public function index()
     {
+        $modelHome = $this->model->load('home');
 
-        $result = $this->model->load('home')->getData();
+        $modelHome->insertData('usuarios', array("nome"=>"Juliana", "idade"=>22));
+        $result = $modelHome->getData();
 
-        if($result){
+        if($result) {
             foreach ($result as $value) {
                 echo $value['nome'];
             }

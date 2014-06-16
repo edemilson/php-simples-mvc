@@ -21,7 +21,8 @@ class BaseController {
     public $view;    
         
     //Executa o método requisitado
-    public function executeAction() {
+    public function executeAction() 
+    {
         //Criando nosso objeto view
         $this->view = new BaseView();
         $this->model = new BaseModel();

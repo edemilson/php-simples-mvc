@@ -10,11 +10,18 @@
 
 use Root\BaseModel;
 
-class HomeModel extends BaseModel{
+class HomeModel extends BaseModel
+{
 
-    public function getData(){
+    public function getData()
+    {
         return $this->db->query("SELECT * FROM usuarios");
     }
+
+    public function insertData($table, $arrayDados)
+    {
+        return $this->db->insert($table, $arrayDados);
+    } 
 
 }
 

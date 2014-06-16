@@ -20,7 +20,8 @@ class BaseModel {
         $this->db = new Database();
     }
 
-    public function load($model){
+    public function load($model)
+    {
         //Vamos checar se o arquivo existe, se não vamos redirecionar o usuário para uma página de erro
         if (file_exists("application/models/" . $model . ".php")) {
             require_once("application/models/" . $model . ".php");

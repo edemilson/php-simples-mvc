@@ -18,7 +18,8 @@ class Loader {
     private $urlValues;
     
     //Pagaremos os parametros da URL para criarmos nosso controller
-    public function __construct() {
+    public function __construct()
+    {
         require_once('application/config/config.php');
         //Pega os dados da URL
         $this->urlValues = $_GET;
@@ -43,7 +44,8 @@ class Loader {
     }
                   
     //Esse é nosso método responsavel pela criação do controller
-    public function createController() {
+    public function createController()
+    {
         require('application/config/config.php');
         //Vamos checar se o arquivo existe, se não vamos redirecionar o usuário para uma página de erro
         if (file_exists("application/controllers/" . $this->controllerName . ".php")) {
@@ -89,22 +91,20 @@ class Loader {
         }
     }
 
-    public function showPage(){
-
+    public function showPage()
+    {
         $controllerActive = new $this->controllerClass();
         $controllerActive->action = $this->action;
         $controllerActive->urlValues = $this->urlValues;
         return $controllerActive;
-
     }
 
-    public function setError(){
-
+    public function setError()
+    {
         require('application/config/config.php');
         $this->controllerClass = ucfirst(strtolower($config['ctrl404'])) . "Controller";
         $this->action = "index";;
         return;
-
     }
 }
 

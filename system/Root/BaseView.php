@@ -15,8 +15,8 @@ class BaseView {
     public $viewFile;
     
     //Mostramos nossa view
-    public function output($view="", $data="") {
-       
+    public function output($view="", $data="") 
+    {
         $this->dataView = $data;
         
         if(is_array($data)){
