@@ -33,8 +33,6 @@ class Loader {
         $this->controllerName = strtolower($this->urlValues['controller']);
         //ucfirst deixo o primeiro caracter da string maiusculo.
         $this->controllerClass = ucfirst(strtolower($this->urlValues['controller'])) . "Controller";
-        //echo $this->controllerClass;
-        //return;
         //Vamos verificar qual método estamos chamando, se não existir por default chamaremos o index
         if ($this->urlValues['action'] == "") {
             $this->action = "index";
