@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Projeto: PHPEtec
  * Arquivo: index.php
  * Propósito: Página de destino que lida com todas as solicitações

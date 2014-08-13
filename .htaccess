@@ -4,3 +4,5 @@ Options +FollowSymLinks
 RewriteEngine on
 # Regra de rescrita de url
 RewriteRule ^([a-zA-Z]*)/?([a-zA-Z]*)?/?([a-zA-Z0-9]*)?/?([a-zA-Z0-9]*)?/?([a-zA-Z0-9]*)?/?$ index.php?controller=$1&action=$2&param1=$3&param2=$4&param3=$5 [NC,L]
+
+AddDefaultCharset UTF-8
